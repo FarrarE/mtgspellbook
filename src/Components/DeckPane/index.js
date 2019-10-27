@@ -8,28 +8,7 @@ import {
 class DeckPane extends React.Component {
     constructor(props) {
         super(props);
-        this.mtg = require('mtgsdk');
         this.state = {url: null};
-
-        this.getCard = this.getCard.bind(this);
-    }
-
-    getCard() {
-        let imgurl;
-
-        this.mtg.card.find(3)
-        .then(result => {
-            imgurl = result.card.imageUrl;
-            this.setState({
-                url: imgurl
-            }); 
-            console.log(this.state.url);
-            this.forceUpdate()
-        }) 
-    }
-
-    componentDidMount() {
-        this.getCard();
     }
   
     render() {
@@ -56,7 +35,6 @@ class DeckPane extends React.Component {
                 <Row>
                 <Col md="2"></Col>
                 <Col md="8">
-                    { this.state.url ? <Card image={this.state.url} /> : null }
                 </Col>
                 <Col md="2"></Col>
                 </Row>

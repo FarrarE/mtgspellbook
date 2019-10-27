@@ -12,4 +12,9 @@
         color:black;
     }
 
+    .login {
+        min-width: 320px;
+        min-height: 35px;
+    }
+
   }

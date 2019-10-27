@@ -21,13 +21,13 @@ const NavigationMenu = (props) => {
         <Collapse navbar>
             <Nav className="ml-auto" navbar>
                 {props.isAuthenticated
-                    ? <NavItem onClick={props.handleLogout}>Logout</NavItem>
+                    ? <NavItem onClick={props.handleLogout}><h3>Logout</h3></NavItem>
                     : <>
                         <LinkContainer to="/signup">
-                        <NavItem>Signup</NavItem>
+                        <NavItem><h3>Signup</h3></NavItem>
                         </LinkContainer>
                         <LinkContainer to="/login">
-                        <NavItem>Login</NavItem>
+                        <NavItem><h3>Login</h3></NavItem>
                         </LinkContainer>
                     </>
                 }

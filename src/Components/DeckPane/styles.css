@@ -1,0 +1,17 @@
+.card-pane div{
+    color:black;
+}
+
+.searchbar{
+    text-align: center;
+    padding:10px;
+}
+
+.view-type{
+    text-align: right;
+    padding:10px;
+}
+
+.view-type button{
+    margin:2px;
+}

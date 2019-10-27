@@ -1,0 +1,39 @@
+.view{
+    text-align: center;
+}
+
+.add button{
+    padding:10px;
+}
+
+.view button{
+    margin:2px;
+}
+
+.deck-list{
+    display:flex;
+    flex-direction: column;
+    
+}
+
+.deck-list .deck-item{
+    margin:5px;
+}
+
+/* DeckItem CSS*/
+
+.deck-item{
+    border-style: solid;
+    border-width: 1px;
+    border-color:grey;
+}
+
+input{
+    border:0px;
+    
+}
+
+.deck-image{
+    height:100px;
+    mask-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
+}

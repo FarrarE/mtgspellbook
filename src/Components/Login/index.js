@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Auth } from "aws-amplify";
 import "./styles.css";
 
 export default function Login(props) {
@@ -10,9 +11,17 @@ export default function Login(props) {
     return email.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
+    async function handleSubmit(event) {
+        event.preventDefault();
+  
+        try {
+            await Auth.signIn(email, password);
+            alert("login");
+            props.userHasAuthenticated(true);
+        } catch (e) {
+            alert(e.message);
+        }
+    }
 
   return (
     <div className="Login">

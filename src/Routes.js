@@ -5,12 +5,15 @@ import NotFound from "./Containers/NotFound.js";
 import Login from "./Components/Login";
 import DeckList from "./Components/DeckList";
 import AppliedRoute from "./Components/AppliedRoute";
+import Signup from "./Containers/Signup";
 
 function Routes({ appProps }) {
   return (
     <Switch>
       <AppliedRoute path="/" exact component={Home} appProps={appProps} />
       <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
+      <AppliedRoute path="/signup" exact component={Signup} appProps={appProps} />
+      <AppliedRoute path="/notes/new" exact component={NewNote} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }
       <Route component={NotFound} />
     </Switch>

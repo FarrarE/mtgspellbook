@@ -9,9 +9,7 @@ function App(props) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
-  useEffect(() => {
-    onLoad();
-  }, []);
+  useEffect(() => {onLoad();}, []);
   
   async function handleLogout() {
     await Auth.signOut();

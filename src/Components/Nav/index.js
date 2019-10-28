@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import './styles.css';
 import {
@@ -21,7 +21,7 @@ const NavigationMenu = (props) => {
             <Nav className="ml-auto" navbar>
                 {props.isAuthenticated
                     ? <>
-                        <LinkContainer to="/my-collection">
+                        <LinkContainer to="/view-deck">
                             <NavItem><h3>My Collection</h3></NavItem>
                         </LinkContainer>
                         <LinkContainer to="/my-deck">

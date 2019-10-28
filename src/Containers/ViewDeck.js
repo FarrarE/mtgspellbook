@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 import config from "../config";
 import "./ViewDeck.css";
 import LoadingSpinner from "../Components/LoadingSpinner";
@@ -34,19 +34,43 @@ export default function ViewDeck(props) {
 
   return (
     <div className="view-deck">
-      <SearchBar />
-      <form onSubmit={handleSubmit}>
-        <LoadingSpinner
-          block
-          type="submit"
-          bsSize="large"
-          bsStyle="primary"
-          isLoading={isLoading}
-          disabled={!validateForm()}
-        >
-          Save
-        </LoadingSpinner>
-      </form>
+      <Row>
+        <Col>
+          <FormGroup controlId="content">
+                <FormControl
+                  className="deck-name"
+                  value={content}
+                  componentClass="textarea"
+                  onChange={e => setContent(e.target.value)}
+                  placeHolder="Deck Name..."
+                />
+            </FormGroup>
+        </Col>
+        <Col>      
+          <SearchBar />
+        </Col>
+        <Col>
+          <form onSubmit={handleSubmit}>
+            <LoadingSpinner
+              block
+              type="submit"
+              bsSize="large"
+              bsStyle="primary"
+              isLoading={isLoading}
+              disabled={!validateForm()}
+            >
+              Save
+            </LoadingSpinner>
+          </form>
+        </Col>
+      </Row>
+      <Row>
+        <Col></Col>
+        <Col>
+
+        </Col>
+        <Col></Col>
+      </Row>
     </div>
   );
 }

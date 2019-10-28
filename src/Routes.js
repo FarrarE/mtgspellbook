@@ -16,7 +16,7 @@ function Routes({ appProps }) {
       <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
       <AppliedRoute path="/signup" exact component={Signup} appProps={appProps} />
       <AppliedRoute path="/my-deck" exact component={MyDecks} appProps={appProps} />
-      <AppliedRoute path="/view-deck" exact component={ViewDeck} appProps={appProps} />
+      <AppliedRoute path="/new-deck" exact component={ViewDeck} appProps={appProps} />
       <Route component={NotFound} />
     </Switch>
   );

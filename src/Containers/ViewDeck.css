@@ -1,3 +1,14 @@
 .view-deck Label{
     color:black;
 }
+
+.view-deck .deck-name{
+    border: none;
+    margin:5px;
+    box-shadow: none;
+}
+
+.view-deck button{
+    max-width: 200px;
+}
+

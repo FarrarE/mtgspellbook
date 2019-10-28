@@ -21,7 +21,7 @@ const NavigationMenu = (props) => {
             <Nav className="ml-auto" navbar>
                 {props.isAuthenticated
                     ? <>
-                        <LinkContainer to="/view-deck">
+                        <LinkContainer to="/collection">
                             <NavItem><h3>My Collection</h3></NavItem>
                         </LinkContainer>
                         <LinkContainer to="/my-deck">

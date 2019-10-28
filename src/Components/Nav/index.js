@@ -21,10 +21,10 @@ const NavigationMenu = (props) => {
             <Nav className="ml-auto" navbar>
                 {props.isAuthenticated
                     ? <>
-                        <LinkContainer to="/signup">
+                        <LinkContainer to="/my-collection">
                             <NavItem><h3>My Collection</h3></NavItem>
                         </LinkContainer>
-                        <LinkContainer to="/signup">
+                        <LinkContainer to="/my-deck">
                             <NavItem><h3>My Decks</h3></NavItem>
                         </LinkContainer>
                         <NavItem onClick={props.handleLogout}><h3>Logout</h3></NavItem>

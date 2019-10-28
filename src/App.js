@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import './App.css';
 import Nav from './Components/Nav';
 import Routes from "./Routes";

@@ -1,11 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./Containers/Home.js";
-import NotFound from "./Containers/NotFound.js";
-import Login from "./Components/Login";
-import DeckList from "./Components/DeckList";
 import AppliedRoute from "./Components/AppliedRoute";
+
+import Home from "./Containers/Home";
 import Signup from "./Containers/Signup";
+import Login from "./Containers/Login";
+import MyDecks from "./Containers/MyDecks";
+import NotFound from "./Containers/NotFound";
 
 function Routes({ appProps }) {
   return (
@@ -13,8 +14,7 @@ function Routes({ appProps }) {
       <AppliedRoute path="/" exact component={Home} appProps={appProps} />
       <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
       <AppliedRoute path="/signup" exact component={Signup} appProps={appProps} />
-      <AppliedRoute path="/notes/new" exact component={NewNote} appProps={appProps} />
-      { /* Finally, catch all unmatched routes */ }
+      <AppliedRoute path="/my-deck" exact component={MyDecks} appProps={appProps} />
       <Route component={NotFound} />
     </Switch>
   );

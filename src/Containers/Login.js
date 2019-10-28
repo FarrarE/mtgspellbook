@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel, Form } from "react-bootstrap"
-import { useFormFields } from "../../libs/hooksLibs.js";
+import { useFormFields } from "../libs/hooksLibs.js";
 import { Auth } from "aws-amplify";
-import LoadingSpinner from "../LoadingSpinner";
-import "./styles.css";
+import LoadingSpinner from "../Components/LoadingSpinner";
+import "./Login.css";
 
 export default function Login(props) {
   const [isLoading, setIsLoading] = useState(false);

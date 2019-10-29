@@ -1,4 +1,24 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MTGSpellbook
+
+This project structure was based off the [Serverless Stack](http://serverless-stack.com) guide.
+
+## Description
+
+MTGSpellbook is a web app that allows users to store information about their Magic the Gathering collection. Using AWS API gateways, it can store user information
+in a Mongo database and uses Cognito identity pools to authenticate user login and API requests.
+
+## Features
+
+1. User signup and Login.
+2. Stores a list of deck names owned by the user.
+
+### Planned Features
+
+1. Use Scryfall API to add cards to a deck.
+2. Use Scryfall API to add cards to collection.
+3. Allow sub lists in collection for better organization.
+4. Use a chart library to display relavent information for decks and collection containers.
+5. Add a hypergeometric calculator.
 
 ## Available Scripts
 

@@ -6,6 +6,7 @@ import Home from "./Containers/Home";
 import Signup from "./Containers/Signup";
 import Login from "./Containers/Login";
 import MyDecks from "./Containers/MyDecks";
+import Deck from "./Containers/Deck";
 import NotFound from "./Containers/NotFound";
 
 function Routes({ appProps }) {
@@ -15,7 +16,7 @@ function Routes({ appProps }) {
       <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
       <AppliedRoute path="/signup" exact component={Signup} appProps={appProps} />
       <AppliedRoute path="/my-deck" exact component={MyDecks} appProps={appProps} />
-      {/*<AppliedRoute path="/deck/:id" exact component={} appProps={appProps} />*/}
+      <AppliedRoute path="/deck/:id" exact component={Deck} appProps={appProps} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
-import './App.css';
 import Nav from './Components/Nav';
 import Routes from "./Routes";
+import './App.css';
 
 function App(props) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);

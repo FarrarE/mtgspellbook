@@ -35,7 +35,7 @@ export default function MyDecks(props) {
   function renderDeckList(notes) {
     return [{}].concat(notes).map((note, i) =>
       i !== 0 ? (
-        <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
+        <LinkContainer key={note.noteId} to={`/deck/${note.noteId}`}>
           <ListGroupItem className="item">
             <h3>{ note.content}</h3>
           </ListGroupItem>

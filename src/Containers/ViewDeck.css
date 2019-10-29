@@ -1,14 +1,8 @@
-.view-deck Label{
-    color:black;
-}
-
-.view-deck .deck-name{
-    border: none;
-    margin:5px;
-    box-shadow: none;
-}
-
-.view-deck button{
-    max-width: 200px;
-}
-
+.Notes form {
+    padding-bottom: 15px;
+  }
+  
+  .Notes form textarea {
+    height: 300px;
+    font-size: 24px;
+  }

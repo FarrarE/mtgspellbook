@@ -5,6 +5,7 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 import SearchBar from "../Components/SearchBar";
 import DeckList from "../Components/DeckList";
 
+
 export default function Deck(props) {
     const [deck, setDeck] = useState(null);
     const [note, setNote] = useState(null);
@@ -44,6 +45,11 @@ export default function Deck(props) {
     return API.put("notes", `/notes/${props.match.params.id}`, {
       body: note
     });
+  }
+
+  async function findCard(cardName){
+    const Scry = require("scryfall-sdk");
+    Scry.Cards.byName(cardName).then(result => alert(result.oracle_text));
   }
   
   async function handleSubmit(event) {
@@ -103,14 +109,13 @@ export default function Deck(props) {
             </FormGroup>
           </Col>
           <Col>
-            <SearchBar className="search-bar" />
+            <SearchBar findCard={findCard} className="search-bar" />
           </Col>
           <Col>          
             <form onSubmit={handleSubmit}>
               <LoadingSpinner
                 block
                 type="submit"
-                bsSize="large"
                 bsStyle="primary"
                 isLoading={isLoading}
                 disabled={!validateForm()}
@@ -119,7 +124,6 @@ export default function Deck(props) {
               </LoadingSpinner>
               <LoadingSpinner
                 block
-                bsSize="large"
                 bsStyle="danger"
                 onClick={handleDelete}
                 isLoading={isDeleting}
@@ -132,7 +136,10 @@ export default function Deck(props) {
         <Row>
         <Col></Col>
         <Col>
-          <DeckList isAuthenticated={props.isAuthenticated} userHasAuthenticated={props.userHasAuthenticated} />
+          <DeckList 
+            isAuthenticated={props.isAuthenticated} 
+            userHasAuthenticated={props.userHasAuthenticated} 
+          />
         </Col>
         <Col></Col>
         </Row>

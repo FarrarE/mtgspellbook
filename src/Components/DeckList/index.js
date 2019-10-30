@@ -33,7 +33,6 @@ export default function DeckList(props) {
   function loadDecks() {
     return API.get("notes", "/notes");
   }
-  
 
   function renderDeckList(notes) {
     return [{}].concat(notes).map((note, i) =>

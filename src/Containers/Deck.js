@@ -9,9 +9,11 @@ import DeckList from "../Components/DeckList";
 export default function Deck(props) {
     const [deck, setDeck] = useState(null);
     const [note, setNote] = useState(null);
+    const [deckList, setDeckList] = useState(null);
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const Scry = require("scryfall-sdk");
 
   useEffect(() => {
     function loadDeck() {
@@ -47,9 +49,23 @@ export default function Deck(props) {
     });
   }
 
-  async function findCard(cardName){
-    const Scry = require("scryfall-sdk");
-    Scry.Cards.byName(cardName).then(result => alert(result.oracle_text));
+
+  async function findCard(cardName) {
+    await Scry.Cards.byName(cardName).then(result =>
+        addCard(result));
+  }
+
+  function addCard(newCard){
+    let temp;
+
+    if(!deckList)
+      temp = [];
+    else
+      temp = deckList;
+
+    temp.push(newCard);
+    setDeckList(null);
+    setDeckList(temp);
   }
   
   async function handleSubmit(event) {
@@ -137,6 +153,7 @@ export default function Deck(props) {
         <Col></Col>
         <Col>
           <DeckList 
+            deckList={deckList}
             isAuthenticated={props.isAuthenticated} 
             userHasAuthenticated={props.userHasAuthenticated} 
           />

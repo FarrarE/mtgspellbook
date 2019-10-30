@@ -102,7 +102,7 @@ export default function MyDecks(props) {
               isLoading={isNewLoading}
               onClick={e => setContent({
                 name: "New Deck",
-                decklist: "DeckList"
+                decklist: null
               })}
             >
               New Deck

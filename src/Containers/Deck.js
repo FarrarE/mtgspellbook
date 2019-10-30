@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import { API, Storage } from "aws-amplify";
-import { FormGroup, FormControl} from "react-bootstrap";
+import { FormGroup, FormControl, Row, Col} from "react-bootstrap";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import SearchBar from "../Components/SearchBar";
+import DeckList from "../Components/DeckList";
 
 export default function Deck(props) {
     const file = useRef(null);
@@ -35,7 +37,7 @@ export default function Deck(props) {
   }, [props.match.params.id]);
 
   function validateForm() {
-    return content.length > 0;
+    return content.name.length > 0;
   }
   
   function saveDeck(note) {
@@ -86,34 +88,54 @@ export default function Deck(props) {
   return (
     <div className="Notes">
     {note && (
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="content">
-          <FormControl
-            value={content}
-            componentClass="textarea"
-            onChange={e => setContent(e.target.value)}
-          />
-        </FormGroup>
-        <LoadingSpinner
-          block
-          type="submit"
-          bsSize="large"
-          bsStyle="primary"
-          isLoading={isLoading}
-          disabled={!validateForm()}
-        >
-          Save
-        </LoadingSpinner>
-        <LoadingSpinner
-          block
-          bsSize="large"
-          bsStyle="danger"
-          onClick={handleDelete}
-          isLoading={isDeleting}
-        >
-          Delete
-        </LoadingSpinner>
-      </form>
+    
+      <div>
+        <Row>
+          <Col>
+            <FormGroup controlId="content">
+            <FormControl
+              value={content.name}
+              componentClass="textarea"
+
+            />
+            </FormGroup>
+          </Col>
+          <Col>
+            <SearchBar className="search-bar" />
+          </Col>
+          <Col>          
+            <form onSubmit={handleSubmit}>
+              <LoadingSpinner
+                block
+                type="submit"
+                bsSize="large"
+                bsStyle="primary"
+                isLoading={isLoading}
+                disabled={!validateForm()}
+              >
+                Save
+              </LoadingSpinner>
+              <LoadingSpinner
+                block
+                bsSize="large"
+                bsStyle="danger"
+                onClick={handleDelete}
+                isLoading={isDeleting}
+              >
+                Delete
+              </LoadingSpinner>
+            </form>
+          </Col>
+        </Row>
+        <Row>
+        <Col></Col>
+        <Col>
+          <DeckList isAuthenticated={props.isAuthenticated} userHasAuthenticated={props.userHasAuthenticated} />
+        </Col>
+        <Col></Col>
+        </Row>
+      </div>
+
     )}
   </div>
   );

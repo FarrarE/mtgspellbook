@@ -3,10 +3,9 @@ import {Col, Row, Button } from "react-bootstrap";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
-import LoadingSpinner from '../Components/LoadingSpinner';
-import "./MyDecks.css";
+import './styles.css';
 
-export default function MyDecks(props) {
+export default function DeckList(props) {
   const [content, setContent] = useState("");
   const [notes, setDecks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,37 +30,17 @@ export default function MyDecks(props) {
     onLoad();
   }, [props.isAuthenticated]);
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setNewLoading(true);
-    try {
-      await createDeck({ content });
-      props.history.push("/");
-      props.history.push("/my-deck");
-    } catch (e) {
-      alert(e);
-      setNewLoading(false);
-    }
-  }
-
   function loadDecks() {
     return API.get("notes", "/notes");
   }
   
-  function createDeck(note) {
-    return API.post("notes", "/notes", {
-      body: note
-    });
-  }
 
   function renderDeckList(notes) {
     return [{}].concat(notes).map((note, i) =>
       i !== 0 ? (
-        <LinkContainer key={note.noteId} to={`/deck/${note.noteId}`}>
           <ListGroupItem className="item">
-            <h3>{ note.content.name}</h3>
+            <h3>{ note.content.decklist}</h3>
           </ListGroupItem>
-        </LinkContainer>
       ) : (
         <div></div>
       )
@@ -71,8 +50,8 @@ export default function MyDecks(props) {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>My Decks</h1>
-        <p>Your spellbook is empty, add a new deck!</p>
+        <h1>Deck List</h1>
+        <p>Your spellbook is empty, add a card!</p>
       </div>
     );
   }
@@ -80,7 +59,7 @@ export default function MyDecks(props) {
   function renderDecks() {
     return (
       <div className="decks">
-        <h1>My Decks</h1>
+        <h1>Decklist</h1>
         <ListGroup>
           {!isLoading && renderDeckList(notes)}
         </ListGroup>
@@ -95,20 +74,7 @@ export default function MyDecks(props) {
         <Col>
           {props.isAuthenticated ? renderDecks() : renderLander()}
         </Col>
-        <Col>
-          <form onSubmit={handleSubmit}>
-            <LoadingSpinner
-              type="submit"
-              isLoading={isNewLoading}
-              onClick={e => setContent({
-                name: "New Deck",
-                decklist: "DeckList"
-              })}
-            >
-              New Deck
-            </LoadingSpinner> 
-          </form>
-        </Col>
+        <Col></Col>
       </Row> 
     </div>
   );

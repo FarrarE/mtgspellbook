@@ -23,13 +23,10 @@ export default function Deck(props) {
     async function onLoad() {
       try {
         const note = await loadDeck();
-        const { content, attachment } = note;
-
-        if (attachment) {
-          note.attachmentURL = await Storage.vault.get(attachment);
-        }
+        const { content } = note;
 
         setContent(content);
+        setDeckList(content.decklist);
         setNote(note);
       } catch (e) {
         alert(e);
@@ -44,8 +41,13 @@ export default function Deck(props) {
   }
   
   function saveDeck(note) {
+    let temp = {content :{
+      name: content.name,
+      decklist: deckList
+    }};
+
     return API.put("notes", `/notes/${props.match.params.id}`, {
-      body: note
+      body: temp
     });
   }
 
@@ -72,9 +74,11 @@ export default function Deck(props) {
 
     event.preventDefault();  
     setIsLoading(true);
+
     try {
       await saveDeck({content});
-      props.history.push("/my-deck");
+      setIsLoading(false);
+      props.history.push(`/deck/${props.match.params.id}`);
     } catch (e) {
       alert(e);
       setIsLoading(false);

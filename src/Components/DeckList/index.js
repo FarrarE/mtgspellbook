@@ -35,14 +35,16 @@ export default function DeckList(props) {
   }
 
   function renderDeckList(notes) {
-    return [{}].concat(notes).map((note, i) =>
-      i !== 0 ? (
-          <ListGroupItem className="item">
-            <h3>{ note.content.decklist}</h3>
-          </ListGroupItem>
-      ) : (
-        <div></div>
-      )
+    return (
+      <div>
+        { 
+          props.deckList ? props.deckList.map(card => 
+            <ListGroupItem className="item">
+                {card.name}
+            </ListGroupItem>
+          ) : null
+        }
+      </div>
     );
   }
 

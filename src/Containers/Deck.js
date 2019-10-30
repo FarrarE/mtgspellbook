@@ -6,7 +6,7 @@ import SearchBar from "../Components/SearchBar";
 import DeckList from "../Components/DeckList";
 
 export default function Deck(props) {
-    const file = useRef(null);
+    const [deck, setDeck] = useState(null);
     const [note, setNote] = useState(null);
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +96,9 @@ export default function Deck(props) {
             <FormControl
               value={content.name}
               componentClass="textarea"
-
+              onChange={e => setContent({
+                name: e.target.value,
+                decklist: content.decklist})}
             />
             </FormGroup>
           </Col>

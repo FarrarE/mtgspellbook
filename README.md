@@ -9,16 +9,17 @@ in a Mongo database and uses Cognito identity pools to authenticate user login a
 
 ## Features
 
-1. User signup and Login.
-2. Stores a list of deck names owned by the user.
+..* User signup and Login.
+..* Stores a list of deck names owned by the user.
+..* Uses Scryfall API to add cards to a deck.
 
 ### Planned Features
 
-1. Use Scryfall API to add cards to a deck.
-2. Use Scryfall API to add cards to collection.
-3. Allow sub lists in collection for better organization.
-4. Use a chart library to display relavent information for decks and collection containers.
-5. Add a hypergeometric calculator.
+..* Add collection page.
+..* Use Scryfall API to add cards to collection.
+..* Allow sub lists in collection for better organization.
+..* Use a chart library to display relavent information for decks and collection containers.
+..* Add a hypergeometric calculator.
 
 ## Available Scripts
 

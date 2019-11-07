@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {Col, Row, Button } from "react-bootstrap";
+import {Col, Row, Button, Form } from "react-bootstrap";
 import { API } from "aws-amplify";
+import Card from '../Card';
 import './styles.css';
 
 export default function DeckList(props) {
@@ -32,15 +33,13 @@ export default function DeckList(props) {
 
   function renderDeckList(deck) {
     return (
-      <ul className="list">
+      <div className="list">
         { 
           props.deckList ? props.deckList.map(card => 
-            <li className="card">  
-              {card.name}
-            </li>
+            <Card card={card} />
           ) : <div>List Loading</div>
         }
-      </ul>
+      </div>
     );
   }
 
@@ -63,10 +62,9 @@ export default function DeckList(props) {
   }
 
   return (
-      <Row>
-        <Col>
-          {props.isAuthenticated ? renderDecks() : renderLander()}
-        </Col>
-      </Row> 
+    <div className="deck-list">
+        <h1>DeckList</h1>
+        {props.isAuthenticated ? renderDecks() : renderLander()}
+    </div>
   );
 }

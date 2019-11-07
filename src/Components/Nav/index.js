@@ -12,7 +12,7 @@ import {
 const NavigationMenu = (props) => {
 
   return (
-    <Navbar className="nav" bg="dark" expand="lg">
+    <Navbar className="nav" bg="dark" variant="dark" expand="lg">
         <Navbar.Brand href="/">
             <h1>MTGSpellbook</h1>
         </Navbar.Brand>

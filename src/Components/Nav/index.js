@@ -13,8 +13,8 @@ const NavigationMenu = (props) => {
 
   return (
     <Navbar className="nav" bg="dark" expand="lg">
-        <Navbar.Brand href="#home">
-            <LinkContainer to="/"><h1>MTGSpellBook</h1></LinkContainer>
+        <Navbar.Brand href="/">
+            <h1>MTGSpellbook</h1>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -38,7 +38,7 @@ const NavigationMenu = (props) => {
                 </>
             }
         </Navbar.Collapse>
-        </Navbar>
+    </Navbar>
   )
 }
 

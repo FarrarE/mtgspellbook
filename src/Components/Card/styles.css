@@ -1,5 +1,4 @@
 .card{
-    color:black;
     font-weight: bold;
     height:25px;
 }
@@ -9,10 +8,6 @@
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.card button{
-    color:black;
 }
 
 .card:hover .card-options{

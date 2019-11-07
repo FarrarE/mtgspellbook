@@ -1,0 +1,28 @@
+.card{
+    display:inline-flex;
+    color:black;
+    font-weight: bold;
+    height:25px;
+}
+
+.card p {
+    margin: 0px 5px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.card button{
+    color:black;
+}
+
+.card:hover .card-options{
+    visibility: visible;
+}
+
+.card-options{
+    visibility: hidden;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+}

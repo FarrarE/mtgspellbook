@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {Col, Row, Button } from "react-bootstrap";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
 import './styles.css';
 
 export default function DeckList(props) {
-  const [content, setContent] = useState("");
-  const [notes, setDecks] = useState([]);
+  const [deck, setDeck] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isNewLoading, setNewLoading] = useState(false);
 
   useEffect(() => {
     async function onLoad() {
@@ -18,8 +14,8 @@ export default function DeckList(props) {
       }
   
       try {
-        const notes = await loadDecks();
-        setDecks(notes);
+        const deck = await loadDecks();
+        setDeck(deck);
       } catch (e) {
         alert(e);
       }
@@ -34,17 +30,17 @@ export default function DeckList(props) {
     return API.get("notes", "/notes");
   }
 
-  function renderDeckList(notes) {
+  function renderDeckList(deck) {
     return (
-      <div>
+      <ul className="list">
         { 
           props.deckList ? props.deckList.map(card => 
-            <ListGroupItem className="item">
-                {card.name}
-            </ListGroupItem>
-          ) : null
+            <li className="card">  
+              {card.name}
+            </li>
+          ) : <div>List Loading</div>
         }
-      </div>
+      </ul>
     );
   }
 
@@ -59,24 +55,18 @@ export default function DeckList(props) {
 
   function renderDecks() {
     return (
-      <div className="decks">
-        <h1>Decklist</h1>
-        <ListGroup>
-          {!isLoading && renderDeckList(notes)}
-        </ListGroup>
-      </div>
+        <div>
+          {!isLoading && renderDeckList(deck)}
+        </div>
+
     );
   }
 
   return (
-    <div className="my-deck"> 
       <Row>
-        <Col></Col>
         <Col>
           {props.isAuthenticated ? renderDecks() : renderLander()}
         </Col>
-        <Col></Col>
       </Row> 
-    </div>
   );
 }

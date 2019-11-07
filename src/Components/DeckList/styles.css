@@ -1,0 +1,11 @@
+
+.list{
+    margin:5px;
+    padding:10px;   
+    border:solid lightgray 1px;
+}
+
+.card{
+    padding:5px;
+    color:black;
+}

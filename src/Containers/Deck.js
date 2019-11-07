@@ -69,6 +69,10 @@ export default function Deck(props) {
     setDeckList(null);
     setDeckList(temp);
   }
+
+  function removeCard(toRemove){
+    
+  }
   
   async function handleSubmit(event) {
 

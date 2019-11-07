@@ -1,9 +1,17 @@
 .search-bar {
-    color:black;
     max-width:400px;
+    margin:5px;
 }
 
 .search-bar form{
-    display:flex;
     margin:5px;
+}
+
+input{
+    color:black;
+}
+
+.search-bar button{
+    margin:0px 10px;
+
 }

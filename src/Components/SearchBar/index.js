@@ -7,16 +7,19 @@ export default function SearchBar(props) {
 
   return (
     <div className="search-bar">
-      <form >
-        <FormGroup controlId="card-name">
-          <FormControl 
+      <form onSubmit={e => { e.preventDefault(); }}>
+          <input
             placeholder="Search..." 
-            autoFocus type="text"               
+            autoFocus type="text"  
+            onKeyPress={e =>{
+              if(e.charCode==13){
+                props.findCard(content);    
+              }
+            }}
             onChange={e => setContent(e.target.value)}
             />
-        </FormGroup>
+        <Button onClick={() => props.findCard(content)}>Add</Button>
       </form>
-      <Button onClick={() => props.findCard(content)}>Add</Button>
     </div>
   );
 }

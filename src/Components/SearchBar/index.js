@@ -8,17 +8,17 @@ export default function SearchBar(props) {
   return (
     <div className="search-bar">
       <form onSubmit={e => { e.preventDefault(); }}>
-          <FormControl
-            className="input"
-            placeholder="Search..." 
-            autoFocus type="text"  
-            onKeyPress={e =>{
-              if(e.charCode==13){
-                props.findCard(content);    
-              }
-            }}
-            onChange={e => setContent(e.target.value)}
-            />
+        <FormControl
+          className="input"
+          placeholder="Search..." 
+          autoFocus type="text"  
+          onKeyPress={e =>{
+            if(e.charCode==13){
+              props.findCard(content);    
+            }
+          }}
+          onChange={e => setContent(e.target.value)}
+          />
       </form>
     </div>
   );

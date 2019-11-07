@@ -21,19 +21,19 @@ const NavigationMenu = (props) => {
             {props.isAuthenticated
                 ? <>
                     <LinkContainer to="/collection">
-                        <NavItem><h3>My Collection</h3></NavItem>
+                        <NavItem><h5>My Collection</h5></NavItem>
                     </LinkContainer>
                     <LinkContainer to="/my-deck">
-                        <NavItem><h3>My Decks</h3></NavItem>
+                        <NavItem><h5>My Decks</h5></NavItem>
                     </LinkContainer>
-                    <NavItem onClick={props.handleLogout}><h3>Logout</h3></NavItem>
+                    <NavItem onClick={props.handleLogout}><h5>Logout</h5></NavItem>
                 </>
                 : <>
                     <LinkContainer to="/signup">
-                    <NavItem><h3>Signup</h3></NavItem>
+                    <NavItem><h5>Signup</h5></NavItem>
                     </LinkContainer>
                     <LinkContainer to="/login">
-                    <NavItem><h3>Login</h3></NavItem>
+                    <NavItem><h5>Login</h5></NavItem>
                     </LinkContainer>
                 </>
             }

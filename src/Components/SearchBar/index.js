@@ -8,7 +8,8 @@ export default function SearchBar(props) {
   return (
     <div className="search-bar">
       <form onSubmit={e => { e.preventDefault(); }}>
-          <input
+          <FormControl
+            className="input"
             placeholder="Search..." 
             autoFocus type="text"  
             onKeyPress={e =>{
@@ -18,7 +19,6 @@ export default function SearchBar(props) {
             }}
             onChange={e => setContent(e.target.value)}
             />
-        <Button onClick={() => props.findCard(content)}>Add</Button>
       </form>
     </div>
   );

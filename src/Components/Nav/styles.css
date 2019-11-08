@@ -1,7 +1,8 @@
 .nav {
     color:white;
+    background-color:white;
 }
 
-.nav h5{
+.nav h1, h5{
     margin:10px;
 }

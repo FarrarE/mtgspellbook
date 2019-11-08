@@ -14,7 +14,7 @@ const NavigationMenu = (props) => {
   return (
     <Navbar className="nav" bg="dark" variant="dark" expand="lg">
         <Navbar.Brand href="/">
-            <h1>MTGSpellbook</h1>
+            <h2>MTGSpellbook</h2>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

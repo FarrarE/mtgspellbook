@@ -10,16 +10,17 @@ export default function Deck(props) {
     const [deck, setDeck] = useState(null);
     const [note, setNote] = useState(null);
     const [deckList, setDeckList] = useState(null);
+    const [sideBoard, setSideBoard] = useState(null);
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const Scry = require("scryfall-sdk");
 
   useEffect(() => {
-    function loadDeck() {
-      return API.get("notes", `/notes/${props.match.params.id}`);
-    }
 
+ 
+
+    // Populates the local data with information pulled from the server.
     async function onLoad() {
       try {
         const note = await loadDeck();
@@ -36,14 +37,50 @@ export default function Deck(props) {
     onLoad();
   }, [props.match.params.id]);
 
+  // Gets the data from the server using the api get route.
+  function loadDeck() {
+    return API.get("notes", `/notes/${props.match.params.id}`);
+  }
+
+  // Used to prevent empty form submission.
   function validateForm() {
     return content.name.length > 0;
   }
-  
+
+  // Attempts to find card using the sryfall api using the card name as a key.
+  async function findCard(cardName) {
+    await Scry.Cards.byName(cardName).then(result =>
+        addCard(result));
+  }
+
+  // Adds the card object to deckList.
+  function addCard(newCard){
+    let temp;
+    let toAdd = {
+      'cardData': newCard,
+      'cardCount': 1
+    };
+
+    if(!deckList)
+      temp = [];
+    else
+      temp = deckList;
+
+    temp.push(toAdd);
+    setDeckList(null);
+    setDeckList(temp);
+  }
+
+  function removeCard(toRemove){
+    
+  } 
+
+  // Saves the deck to server by calling the api put route.
   function saveDeck(note) {
     let temp = {content :{
       name: content.name,
-      decklist: deckList
+      decklist: deckList,
+      sideBoard: null,
     }};
 
     return API.put("notes", `/notes/${props.match.params.id}`, {
@@ -51,29 +88,6 @@ export default function Deck(props) {
     });
   }
 
-
-  async function findCard(cardName) {
-    await Scry.Cards.byName(cardName).then(result =>
-        addCard(result));
-  }
-
-  function addCard(newCard){
-    let temp;
-
-    if(!deckList)
-      temp = [];
-    else
-      temp = deckList;
-
-    temp.push(newCard);
-    setDeckList(null);
-    setDeckList(temp);
-  }
-
-  function removeCard(toRemove){
-    
-  }
-  
   async function handleSubmit(event) {
 
     event.preventDefault();  
@@ -88,7 +102,8 @@ export default function Deck(props) {
       setIsLoading(false);
     }
   }
-  
+
+  // removes deck from server by calling the api delete route.
   function deleteDeck() {
     return API.del("notes", `/notes/${props.match.params.id}`);
   }
@@ -117,60 +132,66 @@ export default function Deck(props) {
   
   return (
     <div className="Notes">
-    {note && (
-    
-      <div>
-        <Row>
+      {note && (
+      
+        <div>
+          <Row>
+            <Col>
+              <FormGroup controlId="content">
+              <FormControl
+                value={content.name}
+                componentClass="textarea"
+                onChange={e => setContent({
+                  name: e.target.value,
+                  decklist: content.decklist})}
+              />
+              </FormGroup>
+            </Col>
+            <Col>
+              <SearchBar findCard={findCard} className="search-bar" />
+            </Col>
+            <Col>          
+              <form onSubmit={handleSubmit}>
+                <LoadingSpinner
+                  block
+                  type="submit"
+                  bsStyle="primary"
+                  isLoading={isLoading}
+                  disabled={!validateForm()}
+                >
+                  Save
+                </LoadingSpinner>
+                <LoadingSpinner
+                  block
+                  bsStyle="danger"
+                  onClick={handleDelete}
+                  isLoading={isDeleting}
+                >
+                  Delete
+                </LoadingSpinner>
+              </form>
+            </Col>
+          </Row>
+          <Row>
+          <Col></Col>
           <Col>
-            <FormGroup controlId="content">
-            <FormControl
-              value={content.name}
-              componentClass="textarea"
-              onChange={e => setContent({
-                name: e.target.value,
-                decklist: content.decklist})}
+            <DeckList 
+              header="Main Board"
+              deckList={deckList}
+              isAuthenticated={props.isAuthenticated} 
+              userHasAuthenticated={props.userHasAuthenticated} 
             />
-            </FormGroup>
+            <DeckList 
+              header="Side Board"
+              deckList={sideBoard}
+              isAuthenticated={props.isAuthenticated} 
+              userHasAuthenticated={props.userHasAuthenticated} 
+            />
           </Col>
-          <Col>
-            <SearchBar findCard={findCard} className="search-bar" />
-          </Col>
-          <Col>          
-            <form onSubmit={handleSubmit}>
-              <LoadingSpinner
-                block
-                type="submit"
-                bsStyle="primary"
-                isLoading={isLoading}
-                disabled={!validateForm()}
-              >
-                Save
-              </LoadingSpinner>
-              <LoadingSpinner
-                block
-                bsStyle="danger"
-                onClick={handleDelete}
-                isLoading={isDeleting}
-              >
-                Delete
-              </LoadingSpinner>
-            </form>
-          </Col>
-        </Row>
-        <Row>
-        <Col></Col>
-        <Col>
-          <DeckList 
-            deckList={deckList}
-            isAuthenticated={props.isAuthenticated} 
-            userHasAuthenticated={props.userHasAuthenticated} 
-          />
-        </Col>
-        <Col></Col>
-        </Row>
-      </div>
-
-    )}
-  </div>
+          <Col></Col>
+          </Row>
+        </div>
+      )}
+    </div>
   );
 }

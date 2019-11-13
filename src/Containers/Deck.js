@@ -10,6 +10,7 @@ export default function Deck(props) {
     const [deck, setDeck] = useState(null);
     const [note, setNote] = useState(null);
     const [deckList, setDeckList] = useState(null);
+    const [sideBoard, setSideBoard] = useState(null);
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -43,7 +44,8 @@ export default function Deck(props) {
   function saveDeck(note) {
     let temp = {content :{
       name: content.name,
-      decklist: deckList
+      decklist: deckList,
+      sideBoard: null,
     }};
 
     return API.put("notes", `/notes/${props.match.params.id}`, {
@@ -59,13 +61,17 @@ export default function Deck(props) {
 
   function addCard(newCard){
     let temp;
+    let toAdd = {
+      'cardData': newCard,
+      'cardCount': 1
+    };
 
     if(!deckList)
       temp = [];
     else
       temp = deckList;
 
-    temp.push(newCard);
+    temp.push(toAdd);
     setDeckList(null);
     setDeckList(temp);
   }
@@ -161,10 +167,18 @@ export default function Deck(props) {
         <Col></Col>
         <Col>
           <DeckList 
+            header="Main Board"
             deckList={deckList}
             isAuthenticated={props.isAuthenticated} 
             userHasAuthenticated={props.userHasAuthenticated} 
           />
+          <DeckList 
+            header="Side Board"
+            deckList={sideBoard}
+            isAuthenticated={props.isAuthenticated} 
+            userHasAuthenticated={props.userHasAuthenticated} 
+          />
+          
         </Col>
         <Col></Col>
         </Row>

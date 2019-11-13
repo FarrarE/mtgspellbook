@@ -37,7 +37,7 @@ export default function DeckList(props) {
         { 
           props.deckList ? props.deckList.map(card => 
             <Card card={card} />
-          ) : <div>List Loading</div>
+          ) : renderLander()
         }
       </div>
     );
@@ -46,7 +46,6 @@ export default function DeckList(props) {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Deck List</h1>
         <p>Your spellbook is empty, add a card!</p>
       </div>
     );
@@ -63,7 +62,7 @@ export default function DeckList(props) {
 
   return (
     <div className="deck-list">
-        <h1>DeckList</h1>
+        {props.header === "Main Board" ? <h3>{props.header}</h3> : <h4>{props.header}</h4>}
         {props.isAuthenticated ? renderDecks() : renderLander()}
     </div>
   );

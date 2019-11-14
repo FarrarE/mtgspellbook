@@ -7,35 +7,28 @@ import DeckList from "../Components/DeckList";
 
 
 export default function Deck(props) {
-    const [deck, setDeck] = useState(null);
-    const [note, setNote] = useState(null);
-    const [deckList, setDeckList] = useState(null);
-    const [sideBoard, setSideBoard] = useState(null);
-    const [content, setContent] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
-    const Scry = require("scryfall-sdk");
+  const [content, setContent] = useState("");
+  const [mainBoard, setMainBoard] = useState([]);
+  const [sideBoard, setSideBoard] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const Scry = require("scryfall-sdk");
 
   useEffect(() => {
-
- 
-
     // Populates the local data with information pulled from the server.
     async function onLoad() {
       try {
-        const note = await loadDeck();
-        const { content } = note;
-
+        const deck = await loadDeck();
+        const {content} = deck;
         setContent(content);
-        setDeckList(content.decklist);
-        setNote(note);
+        setMainBoard(content.mainBoard);
       } catch (e) {
         alert(e);
       }
     }
 
     onLoad();
-  }, [props.match.params.id]);
+  }, []);
 
   // Gets the data from the server using the api get route.
   function loadDeck() {
@@ -50,36 +43,54 @@ export default function Deck(props) {
   // Attempts to find card using the sryfall api using the card name as a key.
   async function findCard(cardName) {
     await Scry.Cards.byName(cardName).then(result =>
-        addCard(result));
+      addCard(result, mainBoard, setMainBoard));
   }
 
-  // Adds the card object to deckList.
-  function addCard(newCard){
-    let temp;
-    let toAdd = {
-      'cardData': newCard,
-      'cardCount': 1
-    };
+  function updateList(){
 
-    if(!deckList)
-      temp = [];
-    else
-      temp = deckList;
-
-    temp.push(toAdd);
-    setDeckList(null);
-    setDeckList(temp);
   }
 
-  function removeCard(toRemove){
+  function findIndex(cardName, list){
+    let index = -1;
+    let length = list.length;
+    for(let i = 0;i < length;++i){
+      if(list[i].cardData.name === cardName)
+        index = i;
+    }
+    return index;
+  }
+
+  // Adds the card object to a list using function set.
+  function addCard(newCard, list, set){
+    let newList;
+    let toAdd; 
+    let index = findIndex(newCard.name, list);
+
+    if(index >= 0){
+      newList = [...list];
+      newList[index].cardCount = newList[index].cardCount + 1;
+      set([]) // re-renders page
+      set(newList);
+    }else{
+      toAdd = {
+        'cardData': newCard,
+        'cardCount': 1
+      };
+      newList = [...list]
+      newList.push(toAdd);
+      set(newList);
+    }
+  }
+
+  function removeCard(index, list, set){
     
-  } 
+  }
 
   // Saves the deck to server by calling the api put route.
   function saveDeck(note) {
     let temp = {content :{
       name: content.name,
-      decklist: deckList,
+      mainBoard: mainBoard,
       sideBoard: null,
     }};
 
@@ -89,7 +100,6 @@ export default function Deck(props) {
   }
 
   async function handleSubmit(event) {
-
     event.preventDefault();  
     setIsLoading(true);
 
@@ -132,8 +142,7 @@ export default function Deck(props) {
   
   return (
     <div className="Notes">
-      {note && (
-      
+      {content && (
         <div>
           <Row>
             <Col>
@@ -143,7 +152,7 @@ export default function Deck(props) {
                 componentClass="textarea"
                 onChange={e => setContent({
                   name: e.target.value,
-                  decklist: content.decklist})}
+                  mainBoard: content.mainBoard})}
               />
               </FormGroup>
             </Col>
@@ -175,15 +184,15 @@ export default function Deck(props) {
           <Row>
           <Col></Col>
           <Col>
-            <DeckList 
+            <DeckList
               header="Main Board"
-              deckList={deckList}
+              list={mainBoard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 
             />
             <DeckList 
               header="Side Board"
-              deckList={sideBoard}
+              list={sideBoard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 
             />

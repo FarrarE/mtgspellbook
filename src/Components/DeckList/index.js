@@ -10,10 +10,19 @@ export default function DeckList(props) {
       setList(temp);
   }, [props.list]);
 
+  function incrementCardHandler(cardName){
+
+
+    props.incrementCard(cardName, props.header)
+  }
+
   return (
     <div className="deck-list">
-        {props.header === "Main Board" ? <h3>{props.header}</h3> : <h4>{props.header}</h4>}
-        {list.map(card => <Card card={card} />)}
+      {props.header === "Main Board" ? <h3>{props.header}</h3> : <h4>{props.header}</h4>}
+      {list.map(card => <Card 
+        card={card} 
+        incrementCardHandler={incrementCardHandler}
+      />)}
     </div>
   );
 }

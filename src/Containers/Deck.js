@@ -87,6 +87,18 @@ export default function Deck(props) {
     }
   }
 
+  function removeCard(index, list, set){
+    let newList = [...list];
+
+    if(newList[index].cardCount === 1){
+      newList.splice(index,1);
+      set(newList);
+    }else{
+      newList[index].cardCount = newList[index].cardCount - 1;
+      set(newList);
+    }
+  }
+
   function incrementCard(cardName, board){
     let index;
     let toAdd;
@@ -104,17 +116,21 @@ export default function Deck(props) {
     }
   }
 
-  function decrementCard(index, list, set){
-    let newList = [...list];
+  function decrementCard(cardName, board){
+    let index;
+    let toAdd;
 
-    if(newList[index].cardCount === 1){
-      newList.splice(index,1);
-      set(newList);
-    }else{
-      newList[index].cardCount = newList[index].cardCount - 1;
-      set(newList);
+    if(board === "Main Board"){
+      index = findIndex(cardName, mainBoard);
+      toAdd = mainBoard[index];
+      removeCard(index, mainBoard, setMainBoard);
     }
 
+    if(board === "Side Board"){
+      addCard(cardName, sideBoard, setSideBoard)
+      toAdd = sideBoard[index];
+      removeCard(index, sideBoard, setSideBoard);
+    }
   }
 
   function moveCard(cardName, board){
@@ -124,14 +140,14 @@ export default function Deck(props) {
     if(board === "Main Board"){
       index = findIndex(cardName, mainBoard);
       toAdd = mainBoard[index];
-      decrementCard(index, mainBoard, setMainBoard);
+      removeCard(index, mainBoard, setMainBoard);
       addCard(toAdd.cardData, sideBoard, setSideBoard);
     }
 
     if(board === "Side Board"){
       index = findIndex(cardName, sideBoard);
       toAdd = sideBoard[index];
-      decrementCard(index, sideBoard, setSideBoard);
+      removeCard(index, sideBoard, setSideBoard);
       addCard(toAdd.cardData, mainBoard, setMainBoard);
     }
   }
@@ -239,6 +255,7 @@ export default function Deck(props) {
               list={mainBoard}
               setList={setMainBoard}
               incrementCard={incrementCard}
+              decrementCard={decrementCard}
               moveCard={moveCard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 
@@ -248,6 +265,7 @@ export default function Deck(props) {
               list={sideBoard}
               setList={setSideBoard}
               incrementCard={incrementCard}
+              decrementCard={decrementCard}
               moveCard={moveCard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 

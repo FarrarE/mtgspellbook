@@ -23,6 +23,7 @@ export default function Deck(props) {
         const {content} = deck;
         setContent(content);
         setMainBoard(content.mainBoard);
+        setSideBoard(content.sideBoard);
       } catch (e) {
         alert(e);
       }
@@ -140,7 +141,7 @@ export default function Deck(props) {
     let temp = {content :{
       name: content.name,
       mainBoard: mainBoard,
-      sideBoard: null,
+      sideBoard: sideBoard,
     }};
 
     return API.put("notes", `/notes/${props.match.params.id}`, {

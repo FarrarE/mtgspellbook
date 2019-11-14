@@ -9,7 +9,7 @@ export default function Card(props) {
   useEffect(() => {
     setContent(props.card.cardData.name);
     setCount(props.card.cardCount);
-  }, [props.isAuthenticated]);
+  }, [props.card.cardCount, props.card.cardData]);
 
 
   return (
@@ -22,7 +22,7 @@ export default function Card(props) {
         <Col >{content}</Col>
         <div className="card-options">
           <button>-</button>
-          <button>+</button>
+          <button onClick={props.incrementCardHandler.bind(this, content)}>+</button>
           <button>SideBoard</button>
       </div>
       </Row>

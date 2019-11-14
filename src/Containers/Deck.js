@@ -103,8 +103,36 @@ export default function Deck(props) {
     }
   }
 
-  function removeCard(index, list, set){
+  function decrementCard(index, list, set){
+    let newList = [...list];
 
+    if(newList[index].cardCount === 1){
+      newList.splice(index,1);
+      set(newList);
+    }else{
+      newList[index].cardCount = newList[index].cardCount - 1;
+      set(newList);
+    }
+
+  }
+
+  function moveCard(cardName, board){
+    let index;
+    let toAdd;
+
+    if(board === "Main Board"){
+      index = findIndex(cardName, mainBoard);
+      toAdd = mainBoard[index];
+      decrementCard(index, mainBoard, setMainBoard);
+      addCard(toAdd.cardData, sideBoard, setSideBoard);
+    }
+
+    if(board === "Side Board"){
+      index = findIndex(cardName, sideBoard);
+      toAdd = sideBoard[index];
+      decrementCard(index, sideBoard, setSideBoard);
+      addCard(toAdd.cardData, mainBoard, setMainBoard);
+    }
   }
 
   // Saves the deck to server by calling the api put route.
@@ -210,6 +238,7 @@ export default function Deck(props) {
               list={mainBoard}
               setList={setMainBoard}
               incrementCard={incrementCard}
+              moveCard={moveCard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 
             />
@@ -218,6 +247,7 @@ export default function Deck(props) {
               list={sideBoard}
               setList={setSideBoard}
               incrementCard={incrementCard}
+              moveCard={moveCard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 
             />

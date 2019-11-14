@@ -23,7 +23,7 @@ export default function Card(props) {
         <div className="card-options">
           <button>-</button>
           <button onClick={props.incrementCardHandler.bind(this, content)}>+</button>
-          <button>SideBoard</button>
+          <button onClick={props.moveCardHandler.bind(this, content)}>SideBoard</button>
       </div>
       </Row>
 

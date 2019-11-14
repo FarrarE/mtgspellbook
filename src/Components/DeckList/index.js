@@ -11,9 +11,11 @@ export default function DeckList(props) {
   }, [props.list]);
 
   function incrementCardHandler(cardName){
-
-
     props.incrementCard(cardName, props.header)
+  }
+
+  function moveCardHandler(cardName){
+    props.moveCard(cardName, props.header)
   }
 
   return (
@@ -22,6 +24,7 @@ export default function DeckList(props) {
       {list.map(card => <Card 
         card={card} 
         incrementCardHandler={incrementCardHandler}
+        moveCardHandler={moveCardHandler}
       />)}
     </div>
   );

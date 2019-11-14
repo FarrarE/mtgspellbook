@@ -44,14 +44,8 @@ export default function Deck(props) {
 
   // Attempts to find card using the sryfall api using the card name as a key.
   async function findCard(cardName) {
-    let index = findIndex(cardName, mainBoard);
-    if(index < 0)
-      return false;
-
     await Scry.Cards.byName(cardName).then(result =>
       addCard(result, mainBoard, setMainBoard));
-      
-    return true;
   }
 
   function updateList(list, board){
@@ -74,6 +68,9 @@ export default function Deck(props) {
     let toAdd; 
     let index = findIndex(newCard.name, list);
 
+    if(!newCard.name)
+      return;
+      
     if(index >= 0){
       newList = [...list];
       newList[index].cardCount = newList[index].cardCount + 1;

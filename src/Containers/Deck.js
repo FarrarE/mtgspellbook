@@ -16,6 +16,7 @@ export default function Deck(props) {
 
   useEffect(() => {
     // Populates the local data with information pulled from the server.
+
     async function onLoad() {
       try {
         const deck = await loadDeck();
@@ -28,7 +29,8 @@ export default function Deck(props) {
     }
 
     onLoad();
-  }, []);
+
+  }, [props.content]);
 
   // Gets the data from the server using the api get route.
   function loadDeck() {
@@ -46,7 +48,7 @@ export default function Deck(props) {
       addCard(result, mainBoard, setMainBoard));
   }
 
-  function updateList(){
+  function updateList(list, board){
 
   }
 
@@ -69,7 +71,6 @@ export default function Deck(props) {
     if(index >= 0){
       newList = [...list];
       newList[index].cardCount = newList[index].cardCount + 1;
-      set([]) // re-renders page
       set(newList);
     }else{
       toAdd = {
@@ -82,8 +83,25 @@ export default function Deck(props) {
     }
   }
 
+  function incrementCard(cardName, board){
+    let index;
+    let toAdd;
+
+    if(board === "Main Board"){
+      index = findIndex(cardName, mainBoard);
+      toAdd = mainBoard[index];
+      addCard(toAdd.cardData, mainBoard, setMainBoard);
+    }
+
+    if(board === "Side Board"){
+      addCard(cardName, sideBoard, setSideBoard)
+      toAdd = sideBoard[index];
+      addCard(toAdd.cardData, sideBoard, setSideBoard);
+    }
+  }
+
   function removeCard(index, list, set){
-    
+
   }
 
   // Saves the deck to server by calling the api put route.
@@ -187,12 +205,16 @@ export default function Deck(props) {
             <DeckList
               header="Main Board"
               list={mainBoard}
+              setList={setMainBoard}
+              incrementCard={incrementCard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 
             />
             <DeckList 
               header="Side Board"
               list={sideBoard}
+              setList={setSideBoard}
+              incrementCard={incrementCard}
               isAuthenticated={props.isAuthenticated} 
               userHasAuthenticated={props.userHasAuthenticated} 
             />

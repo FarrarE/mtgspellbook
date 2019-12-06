@@ -1,0 +1,48 @@
+#card-container{
+    border:solid darkgrey 1px;
+
+    input{
+        max-width: 20px;
+        max-height: 20px;
+        text-align: center;
+        border: none;
+    }
+    button{
+        height:25px;
+    }
+}
+
+#card-container:hover{
+
+    .preview{
+        position:fixed;
+        display:block;
+        z-index:100;
+    }
+    
+    .card-options{
+        visibility: visible;
+    }
+}
+
+.cost{
+    text-align: right;
+}
+
+.name{
+    text-align: left;
+}
+
+.preview{
+    display:none;
+}
+
+
+
+.card-options{
+    visibility: hidden;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}

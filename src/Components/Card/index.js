@@ -7,7 +7,11 @@ export default function Card(props) {
   const [count, setCount] = useState("");
 
   useEffect(() => {
-    setContent(props.card.cardData.name);
+    setContent({
+      name: props.card.cardData.name,
+      cmc: props.card.cardData.mana_cost,
+      preview: props.card.cardData.image_uris.small
+    });
     setCount(props.card.cardCount);
   }, [props.card.cardCount, props.card.cardData]);
 
@@ -19,7 +23,11 @@ export default function Card(props) {
           <input placeholder="x" type="text" value={count}>
           </input>
         </Col>
-        <Col >{content}</Col>
+        <Col className="name">{content.name}</Col>
+        <Col className="cost">{content.cmc}</Col>
+        <div className="preview">
+          <img src={content.preview}></img>
+        </div>
         <div className="card-options">
           <button onClick={props.decrementCardHandler.bind(this, content)}>-</button>
           <button onClick={props.incrementCardHandler.bind(this, content)}>+</button>

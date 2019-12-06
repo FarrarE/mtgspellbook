@@ -27,6 +27,7 @@ export default function DeckList(props) {
       {props.header === "Main Board" ? <h3>{props.header}</h3> : <h4>{props.header}</h4>}
       {list.map(card => <Card 
         card={card} 
+        header={props.header}
         incrementCardHandler={incrementCardHandler}
         decrementCardHandler={decrementCardHandler}
         moveCardHandler={moveCardHandler}

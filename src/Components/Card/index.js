@@ -5,8 +5,15 @@ import {Container, Row, Col} from 'react-bootstrap';
 export default function Card(props) {
   const [content, setContent] = useState("");
   const [count, setCount] = useState("");
+  const [board, setBoard] = useState("");
 
   useEffect(() => {
+
+    if(props.header === "Main Board")
+      setBoard("Side Board");
+    else
+      setBoard("Main Board");
+
     setContent({
       name: props.card.cardData.name,
       cmc: props.card.cardData.mana_cost,
@@ -31,7 +38,7 @@ export default function Card(props) {
         <div className="card-options">
           <button onClick={props.decrementCardHandler.bind(this, content.name)}>-</button>
           <button onClick={props.incrementCardHandler.bind(this, content.name)}>+</button>
-          <button onClick={props.moveCardHandler.bind(this, content.name)}>SideBoard</button>
+          <button onClick={props.moveCardHandler.bind(this, content.name)}>{board}</button>
       </div>
       </Row>
 

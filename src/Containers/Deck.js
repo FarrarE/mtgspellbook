@@ -106,11 +106,13 @@ export default function Deck(props) {
     if(board === "Main Board"){
       index = findIndex(cardName, mainBoard);
       toAdd = mainBoard[index];
-      addCard(toAdd.cardData, mainBoard, setMainBoard);
+      
+      if(toAdd)
+        addCard(toAdd.cardData, mainBoard, setMainBoard);
     }
 
     if(board === "Side Board"){
-      addCard(cardName, sideBoard, setSideBoard)
+      index = findIndex(cardName, sideBoard);
       toAdd = sideBoard[index];
       addCard(toAdd.cardData, sideBoard, setSideBoard);
     }
@@ -127,7 +129,7 @@ export default function Deck(props) {
     }
 
     if(board === "Side Board"){
-      addCard(cardName, sideBoard, setSideBoard)
+      index = findIndex(cardName, sideBoard);
       toAdd = sideBoard[index];
       removeCard(index, sideBoard, setSideBoard);
     }

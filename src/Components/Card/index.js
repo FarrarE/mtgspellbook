@@ -29,9 +29,9 @@ export default function Card(props) {
           <img src={content.preview}></img>
         </div>
         <div className="card-options">
-          <button onClick={props.decrementCardHandler.bind(this, content)}>-</button>
-          <button onClick={props.incrementCardHandler.bind(this, content)}>+</button>
-          <button onClick={props.moveCardHandler.bind(this, content)}>SideBoard</button>
+          <button onClick={props.decrementCardHandler.bind(this, content.name)}>-</button>
+          <button onClick={props.incrementCardHandler.bind(this, content.name)}>+</button>
+          <button onClick={props.moveCardHandler.bind(this, content.name)}>SideBoard</button>
       </div>
       </Row>
 

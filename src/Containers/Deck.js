@@ -249,7 +249,7 @@ export default function Deck(props) {
           </Row>
           <Row>
           <Col></Col>
-          <Col>
+          <Col md="6">
             <DeckList
               header="Main Board"
               list={mainBoard}

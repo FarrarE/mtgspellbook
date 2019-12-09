@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Row, Col} from "react-bootstrap";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import SearchBar from "../Components/SearchBar";
 import DeckList from "../Components/DeckList";
+import {MAIN_BOARD, SIDE_BOARD} from "../constants";
 
 
 export default function Deck(props) {
@@ -107,7 +108,7 @@ export default function Deck(props) {
     let index;
     let toAdd;
 
-    if(board === "Main Board"){
+    if(board === MAIN_BOARD){
       index = findIndex(cardName, mainBoard);
       toAdd = mainBoard[index];
       
@@ -115,7 +116,7 @@ export default function Deck(props) {
         addCard(toAdd.cardData, mainBoard, setMainBoard);
     }
 
-    if(board === "Side Board"){
+    if(board === SIDE_BOARD){
       index = findIndex(cardName, sideBoard);
       toAdd = sideBoard[index];
       addCard(toAdd.cardData, sideBoard, setSideBoard);
@@ -126,13 +127,13 @@ export default function Deck(props) {
     let index;
     let toAdd;
 
-    if(board === "Main Board"){
+    if(board === MAIN_BOARD){
       index = findIndex(cardName, mainBoard);
       toAdd = mainBoard[index];
       removeCard(index, mainBoard, setMainBoard);
     }
 
-    if(board === "Side Board"){
+    if(board === SIDE_BOARD){
       index = findIndex(cardName, sideBoard);
       toAdd = sideBoard[index];
       removeCard(index, sideBoard, setSideBoard);
@@ -143,14 +144,14 @@ export default function Deck(props) {
     let index;
     let toAdd;
 
-    if(board === "Main Board"){
+    if(board === MAIN_BOARD){
       index = findIndex(cardName, mainBoard);
       toAdd = mainBoard[index];
       removeCard(index, mainBoard, setMainBoard);
       addCard(toAdd.cardData, sideBoard, setSideBoard);
     }
 
-    if(board === "Side Board"){
+    if(board === SIDE_BOARD){
       index = findIndex(cardName, sideBoard);
       toAdd = sideBoard[index];
       removeCard(index, sideBoard, setSideBoard);
@@ -257,7 +258,7 @@ export default function Deck(props) {
           <Col></Col>
           <Col md="6">
             <DeckList
-              header="Main Board"
+              header={MAIN_BOARD}
               list={mainBoard}
               setList={setMainBoard}
               incrementCard={incrementCard}
@@ -267,7 +268,7 @@ export default function Deck(props) {
               userHasAuthenticated={props.userHasAuthenticated} 
             />
             <DeckList 
-              header="Side Board"
+              header={SIDE_BOARD}
               list={sideBoard}
               setList={setSideBoard}
               incrementCard={incrementCard}

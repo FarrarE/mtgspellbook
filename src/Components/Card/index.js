@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./styles.css";
 import {Container, Row, Col} from 'react-bootstrap';
+import {SIDE_BOARD, MAIN_BOARD} from "../../constants";
 
 export default function Card(props) {
   const [content, setContent] = useState("");
@@ -9,10 +10,10 @@ export default function Card(props) {
 
   useEffect(() => {
 
-    if(props.header === "Main Board")
-      setBoard("Side Board");
+    if(props.header === MAIN_BOARD)
+      setBoard(SIDE_BOARD);
     else
-      setBoard("Main Board");
+      setBoard(MAIN_BOARD);
 
     setContent({
       name: props.card.cardData.name,

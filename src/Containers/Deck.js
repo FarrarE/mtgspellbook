@@ -45,8 +45,12 @@ export default function Deck(props) {
 
   // Attempts to find card using the sryfall api using the card name as a key.
   async function findCard(cardName) {
-    await Scry.Cards.byName(cardName).then(result =>
-      addCard(result, mainBoard, setMainBoard));
+    const card = await Scry.Cards.byName(cardName);
+
+    if(card.object)
+      addCard(card, mainBoard, setMainBoard);
+    else
+      alert("Card not Found");
   }
 
   function updateList(list, board){

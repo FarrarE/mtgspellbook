@@ -13,6 +13,8 @@ export default function Deck(props) {
   const [sideBoard, setSideBoard] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [suggested, setSuggested] = useState([]);
+
   const Scry = require("scryfall-sdk");
 
   useEffect(() => {
@@ -54,8 +56,10 @@ export default function Deck(props) {
       alert("Card not Found");
   }
 
-  function updateList(list, board){
-
+  async function search(cardName){
+    const list = await Scry.Cards.autoCompleteName(cardName);
+    setSuggested(list);
+    //alert(JSON.stringify(list));
   }
 
   function findIndex(cardName, list){
@@ -230,7 +234,12 @@ export default function Deck(props) {
               </FormGroup>
             </Col>
             <Col>
-              <SearchBar findCard={findCard} className="search-bar" />
+              <SearchBar 
+                className="search-bar"
+                findCard={findCard}  
+                search={search}
+                suggested={suggested}
+              />
             </Col>
             <Col>          
               <form onSubmit={handleSubmit}>
